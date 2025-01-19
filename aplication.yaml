@@ -1,0 +1,24 @@
+apiVersion: autoscaling/v2
+kind: Application
+metadata:
+  name: myapp-argo-application
+spec:
+  project : default
+
+  source :
+    repoURL : https://github.com/VennesVhou/Kubernetes
+    targetRevision: HEAD
+    path: dev
+  destination: 
+    server: https://kubernetes.default.svc
+    namespace: myapp
+
+  syncPolicy:
+    syncOption:
+    - CreateNamespace=true
+
+    automated:
+      selfHeal: true
+      prune: true
+      
+
